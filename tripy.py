@@ -1,13 +1,18 @@
 import math
 import sys
 from collections import namedtuple
+from typing import Tuple, List, Union
 
 Point = namedtuple('Point', ['x', 'y'])
 
 EPSILON = math.sqrt(sys.float_info.epsilon)
 
+Point2D = Tuple[float, float]
+Triangle = Tuple[Point2D, Point2D, Point2D]
 
-def earclip(polygon):
+Polygon = Union[List[List[float]], List[Tuple[float, float]]]
+
+def earclip(polygon: Polygon) -> List[Triangle]:
     """
     Simple earclipping algorithm for a given polygon p.
     polygon is expected to be an array of 2-tuples of the cartesian points of the polygon
@@ -120,7 +125,7 @@ def _triangle_sum(x1, y1, x2, y2, x3, y3):
     return x1 * (y3 - y2) + x2 * (y1 - y3) + x3 * (y2 - y1)
 
 
-def calculate_total_area(triangles):
+def calculate_total_area(triangles: List[Triangle]) -> float:
     result = []
     for triangle in triangles:
         sides = []
